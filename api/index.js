@@ -1,3 +1,3 @@
-import server from "./../dist/bin/www.js";
+import { server as app } from "./../dist/bin/www.js";
 
-export default server;
+export default app;
