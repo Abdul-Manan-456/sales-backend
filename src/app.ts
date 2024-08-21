@@ -16,19 +16,22 @@ const app: Express = express();
 import indexRouter from "./routes/index.js";
 
 app.use(express.json());
-
+app.use(
+  cors({
+    origin: [
+      "http://localhost:3000",
+      "https://sales-frontend-iota.vercel.app/",
+      `${process.env.CLIENT_URL}`,
+    ],
+    credentials: true,
+  }),
+);
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static("public"));
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
-app.use(
-  cors({
-    origin: "*",
-    credentials: true,
-  }),
-);
 app.use("/api/v1", indexRouter);
 app.get("/home", (req, res) => {
   res.send("hello world");
