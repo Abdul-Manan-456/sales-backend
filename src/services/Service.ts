@@ -1,4 +1,4 @@
-import { ResponseModel } from "../interfaces";
+import { ResponseModel } from "../interfaces/index.js";
 
 export default class Service {
   response({ code, message, data, error }: ResponseModel) {

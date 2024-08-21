@@ -2,9 +2,9 @@ import { Request } from "express";
 import moment from "moment";
 import mongoose from "mongoose";
 
-import { User } from "../models";
-import { Invoice } from "../models/invoice";
-import Service from "./Service";
+import { User } from "../models/index.js";
+import { Invoice } from "../models/invoice.js";
+import Service from "./Service.js";
 
 class InvoiceService extends Service {
   constructor() {

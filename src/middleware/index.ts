@@ -1,2 +1,2 @@
-export * from "./authMiddleware";
-export * from "./validator";
+export * from "./authMiddleware.js";
+export * from "./validator.js";

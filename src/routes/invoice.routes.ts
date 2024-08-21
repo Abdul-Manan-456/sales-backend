@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import InvoiceController from "../controller/Invoice.controller";
+import InvoiceController from "../controller/Invoice.controller.js";
 
 // import { validator } from "../middleware";
 export const router: Router = Router();

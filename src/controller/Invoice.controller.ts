@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 
-import { InvoiceService } from "../services";
-import logger from "../utils/winston";
+import { InvoiceService } from "../services/index.js";
 class InvoiceController {
   constructor() {}
 
@@ -11,7 +10,6 @@ class InvoiceController {
       const response = await InvoiceService.createInvoice(req.body);
       return res.status(response.code).json(response);
     } catch (error) {
-      logger.error(error);
       next(error);
     }
   }
@@ -23,7 +21,6 @@ class InvoiceController {
       const response = await InvoiceService.getInvoice(req);
       return res.status(response.code).json(response);
     } catch (error) {
-      logger.error(error);
       next(error);
     }
   }
@@ -35,7 +32,6 @@ class InvoiceController {
       const response = await InvoiceService.invoiceUserDetail(req);
       return res.status(response.code).json(response);
     } catch (error) {
-      logger.error(error);
       next(error);
     }
   }
@@ -49,7 +45,6 @@ class InvoiceController {
       );
       return res.status(response.code).json(response);
     } catch (error) {
-      logger.error(error);
       next(error);
     }
   }
@@ -64,7 +59,6 @@ class InvoiceController {
       );
       return res.status(response.code).json(response);
     } catch (error) {
-      logger.error(error);
       next(error);
     }
   }
@@ -76,7 +70,6 @@ class InvoiceController {
       const response = await InvoiceService.deleteInvoice(req.params.id as any);
       return res.status(response.code).json(response);
     } catch (error) {
-      logger.error(error);
       next(error);
     }
   }

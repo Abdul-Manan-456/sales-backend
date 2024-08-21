@@ -1,5 +1,5 @@
-import { User } from "../models";
-import Service from "./Service";
+import { User } from "../models/index.js";
+import Service from "./Service.js";
 class UserService extends Service {
   constructor() {
     super();

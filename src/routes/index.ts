@@ -1,10 +1,10 @@
 import express, { Router } from "express";
 const indexRouter: Router = express.Router();
 
-import { router as authRouter } from "./auth.routes";
-import { router as categoryRouter } from "./category.routes";
-import { router as invoiceRouter } from "./invoice.routes";
-import { router as userRouter } from "./user.routes";
+import { router as authRouter } from "./auth.routes.js";
+import { router as categoryRouter } from "./category.routes.js";
+import { router as invoiceRouter } from "./invoice.routes.js";
+import { router as userRouter } from "./user.routes.js";
 const routes = [
   {
     path: "/auth",

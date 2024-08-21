@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 
-import { CategoryService } from "../services";
-import logger from "../utils/winston";
+import { CategoryService } from "../services/index.js";
 
 class CategoryController {
   constructor() {}
@@ -12,7 +11,6 @@ class CategoryController {
       const response = await CategoryService.createCategory(req.body);
       return res.status(response.code).json(response);
     } catch (error) {
-      logger.error(error);
       next(error);
     }
   }
@@ -25,7 +23,6 @@ class CategoryController {
       const response = await CategoryService.getCategory(reqQuery);
       return res.status(response.code).json(response);
     } catch (error) {
-      logger.error(error);
       next(error);
     }
   }
@@ -39,7 +36,6 @@ class CategoryController {
       );
       return res.status(response.code).json(response);
     } catch (error) {
-      logger.error(error);
       next(error);
     }
   }
@@ -53,7 +49,6 @@ class CategoryController {
       );
       return res.status(response.code).json(response);
     } catch (error) {
-      logger.error(error);
       next(error);
     }
   }
@@ -68,7 +63,6 @@ class CategoryController {
       );
       return res.status(response.code).json(response);
     } catch (error) {
-      logger.error(error);
       next(error);
     }
   }
@@ -82,7 +76,6 @@ class CategoryController {
       );
       return res.status(response.code).json(response);
     } catch (error) {
-      logger.error(error);
       next(error);
     }
   }

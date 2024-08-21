@@ -1,5 +1,5 @@
-import { Category } from "../models";
-import Service from "./Service";
+import { Category } from "../models/index.js";
+import Service from "./Service.js";
 
 class CategoryService extends Service {
   constructor() {

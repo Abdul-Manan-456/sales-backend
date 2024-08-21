@@ -1,8 +1,8 @@
 import { Router } from "express";
 
-import CategoryController from "../controller/Category.controller";
-import { validator } from "../middleware";
-import { createCategoryJoi } from "../validations/category/category.validator";
+import CategoryController from "../controller/Category.controller.js";
+import { validator } from "../middleware/index.js";
+import { createCategoryJoi } from "../validations/category/category.validator.js";
 export const router: Router = Router();
 
 router.post(

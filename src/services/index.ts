@@ -1,8 +1,8 @@
-import AuthService from "./Auth.service";
-import CategoryService from "./Category.service";
-import InvoiceService from "./Invoice.service";
-import Service from "./Service";
-import UserService from "./User.service";
+import AuthService from "./Auth.service.js";
+import CategoryService from "./Category.service.js";
+import InvoiceService from "./Invoice.service.js";
+import Service from "./Service.js";
+import UserService from "./User.service.js";
 
 //
 //

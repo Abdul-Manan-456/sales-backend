@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-import { Invoice } from "./invoice";
+import { Invoice } from "./invoice.js";
 const { Schema } = mongoose;
 
 const userSchema = new Schema(

@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 
-import { AuthService } from "../services";
-import logger from "../utils/winston";
+import { AuthService } from "../services/index.js";
 
 class UserController {
   constructor() {}
@@ -10,7 +9,6 @@ class UserController {
       const response = await AuthService.createUser(req.body);
       return res.status(response.code).json(response);
     } catch (error) {
-      logger.error(error);
       next(error);
     }
   }
@@ -25,7 +23,6 @@ class UserController {
 
       return res.status(response.code).json(response);
     } catch (error) {
-      logger.error(error);
       next(error);
     }
   }
@@ -34,7 +31,6 @@ class UserController {
       const response = await AuthService.forgotPassword(req.body);
       return res.status(response.code).json(response);
     } catch (error) {
-      logger.error(error);
       next(error);
     }
   }
@@ -43,7 +39,6 @@ class UserController {
       const response = await AuthService.resetPassword(req.body);
       return res.status(response.code).json(response);
     } catch (error) {
-      logger.error(error);
       next(error);
     }
   }
@@ -53,7 +48,6 @@ class UserController {
       const response = await AuthService.changePassword(req.body);
       return res.status(response.code).json(response);
     } catch (error) {
-      logger.error(error);
       next(error);
     }
   }

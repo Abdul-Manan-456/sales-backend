@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 
-import { publicRotues } from "../config/publicRoutes";
+import { publicRotues } from "../config/publicRoutes.js";
 
 export const authMiddleware = (
   req: Request,
