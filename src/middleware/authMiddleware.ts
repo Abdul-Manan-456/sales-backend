@@ -21,6 +21,8 @@ export const authMiddleware = (
     // ------------- CHECK FOR AUTENTICATED ROUTES -----------
     // get token from cookies
     const token = req.cookies["auth-token"];
+    console.log("token--------", token);
+    console.log("cookies---------", req.cookies);
     if (!token) {
       return res.status(401).json({ message: "No Token, Unauthorized Access" });
     }
