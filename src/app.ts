@@ -12,7 +12,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 config();
 const app: Express = express();
-// import { authMiddleware } from "./middleware/index.js";
+import { authMiddleware } from "./middleware/index.js";
 import indexRouter from "./routes/index.js";
 
 app.use(express.json());
@@ -32,7 +32,7 @@ app.use(express.static("public"));
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
-app.use("/api/v1", indexRouter);
+app.use("/api/v1", authMiddleware, indexRouter);
 app.get("/home", (req, res) => {
   res.send("hello world");
 });

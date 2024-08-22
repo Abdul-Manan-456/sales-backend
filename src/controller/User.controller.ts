@@ -17,8 +17,9 @@ class UserController {
   // ------------------ GET ALL --------------------
 
   async getUser(req: Request, res: Response, next: NextFunction) {
+    const reqBody = req.body;
     try {
-      const response = await UserService.getUser();
+      const response = await UserService.getUser(reqBody);
       return res.status(response.code).json(response);
     } catch (error) {
       next(error);

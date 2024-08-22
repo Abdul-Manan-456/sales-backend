@@ -9,7 +9,10 @@ class UserService extends Service {
 
   async createUser(reqBody: any) {
     try {
-      const data = await User.create({ ...reqBody });
+      const data = await User.create({
+        ...reqBody,
+        userCreatedBy: reqBody?.user.id,
+      });
       return this.response({
         code: 201,
         message: "Created Successfully",
@@ -21,9 +24,11 @@ class UserService extends Service {
   }
 
   // ---------------   GET ALL --------------
-  async getUser() {
+  async getUser(reqBody: any) {
     try {
-      const data = await User.find().sort({ createdAt: -1 });
+      const data = await User.find({ userCreatedBy: reqBody?.user?.id }).sort({
+        createdAt: -1,
+      });
 
       return this.response({
         code: 200,

@@ -20,11 +20,12 @@ export const authMiddleware = (
     }
     // ------------- CHECK FOR AUTENTICATED ROUTES -----------
     // get token from cookies
-    const token = req.cookies.token;
+    const token = req.cookies["auth-token"];
     if (!token) {
       return res.status(401).json({ message: "No Token, Unauthorized Access" });
     }
     const decoded = jwt.verify(token, process.env.JWT_SECRET as string);
+
     req.body.user = decoded;
     next();
   } catch (error) {
