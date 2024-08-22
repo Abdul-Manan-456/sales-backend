@@ -18,14 +18,12 @@ export const authMiddleware = (
         return next();
       }
     }
-    // ------------- CHECK FOR AUTENTICATED ROUTES -----------
-    // get token from cookies
-    const token = req.cookies["auth-token"];
-    console.log("token--------", token);
-    console.log("cookies---------", req.cookies);
-    if (!token) {
+    const header = req.headers["authorization"];
+    if (!header) {
       return res.status(401).json({ message: "No Token, Unauthorized Access" });
     }
+    const token = header.split(" ")[1];
+
     const decoded = jwt.verify(token, process.env.JWT_SECRET as string);
 
     req.body.user = decoded;
