@@ -20,7 +20,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:3000",
-      "https://sales-frontend-iota.vercel.app/",
+      "https://sales-frontend-iota.vercel.app",
       `${process.env.CLIENT_URL}`,
     ],
     credentials: true,

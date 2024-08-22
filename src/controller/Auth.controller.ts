@@ -15,11 +15,14 @@ class UserController {
   async login(req: Request, res: Response, next: NextFunction) {
     try {
       const response = await AuthService.login(req.body);
-      response.code === 200 &&
-        res.cookie("token", response.data.token, {
-          secure: process.env.NODE_ENV === "production",
-          maxAge: 1000 * 60 * 60 * 24 * 365,
-        });
+      // response.code === 200 &&
+      //   res.cookie("token", response.data.token, {
+      //     maxAge: 1000 * 60 * 60 * 24 * 365,
+      //     expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 365),
+      //     sameSite: "none",
+      //     secure: true,
+      //     path: "/",
+      //   });
 
       return res.status(response.code).json(response);
     } catch (error) {
