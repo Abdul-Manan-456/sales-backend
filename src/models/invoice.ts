@@ -50,6 +50,10 @@ const invoiceSchema = new Schema(
       required: true,
       default: Date.now,
     },
+    createdBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
   },
   {
     timestamps: true,

@@ -10,7 +10,10 @@ class CategoryService extends Service {
 
   async createCategory(reqBody: any) {
     try {
-      const data = await Category.create({ ...reqBody });
+      const data = await Category.create({
+        ...reqBody,
+        createdBy: reqBody.user.id,
+      });
       return this.response({
         code: 201,
         message: "Created Successfully",
@@ -22,7 +25,7 @@ class CategoryService extends Service {
   }
 
   // ---------------   GET ALL --------------
-  async getCategory(reqQuery: any) {
+  async getCategory({ reqBody, reqQuery }: any) {
     console.log("reqquery", reqQuery);
     const { parentCategoryId } = reqQuery;
 
@@ -30,7 +33,10 @@ class CategoryService extends Service {
       reqQuery = { ...reqQuery, parentCategoryId: null };
     }
     try {
-      const data = await Category.find({ ...reqQuery })
+      const data = await Category.find({
+        ...reqQuery,
+        createdBy: reqBody.user.id,
+      })
         .sort({
           createdAt: -1,
         })

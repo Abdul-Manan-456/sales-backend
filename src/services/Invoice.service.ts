@@ -17,8 +17,10 @@ class InvoiceService extends Service {
     try {
       // const reqData = reqBody;
       reqBody.date = moment(reqBody.date).format("YYYY-MM-DD");
-      console.log("date--------", reqBody);
-      const data = await Invoice.create({ ...reqBody });
+      const data = await Invoice.create({
+        ...reqBody,
+        createdBy: reqBody.user.id,
+      });
       return this.response({
         code: 201,
         message: "Created Successfully",
@@ -32,8 +34,12 @@ class InvoiceService extends Service {
   // ---------------   GET ALL --------------
   async getInvoice(req: Request) {
     const reqQuery = req?.query;
+    const reqBody = req.body;
     try {
-      const data = await Invoice.find(reqQuery)
+      const data = await Invoice.find({
+        ...reqQuery,
+        createdBy: reqBody.user.id,
+      })
         .sort({ createdAt: -1 })
         .populate("userId")
         .populate({
@@ -58,6 +64,7 @@ class InvoiceService extends Service {
     }
   }
   // ---------------   GET Stats/details --------------
+  // --------------- States For a Singt/Particular User ---------------
   async invoiceUserDetail(req: Request) {
     interface CustomQuery {
       userId?: string;
@@ -114,6 +121,72 @@ class InvoiceService extends Service {
           stat,
           invoice,
         },
+      });
+    } catch (error: any) {
+      throw new Error(error);
+    }
+  }
+
+  // -------------------- DASHBOARD API / STATS => FOR ADMIN ----------------
+  async getStats(req: Request) {
+    const reqQuery = req?.query;
+    const user = req.body.user;
+    const ObjectId = mongoose.Types.ObjectId;
+    const reqUser = new ObjectId(user);
+    let queryObj: any = {};
+
+    const statsType = reqQuery.statsType || "all";
+    if (statsType === "today") {
+      queryObj.createdAt = {
+        $gte: moment().startOf("day").toDate(),
+        $lte: moment().endOf("day").toDate(),
+      };
+    } else if (statsType === "week") {
+      queryObj.createdAt = {
+        $gte: moment().startOf("week").toDate(),
+        $lte: moment().endOf("week").toDate(),
+      };
+    } else if (statsType === "month") {
+      queryObj.createdAt = {
+        $gte: moment().startOf("month").toDate(),
+        $lte: moment().endOf("month").toDate(),
+      };
+    } else if (statsType === "all") {
+      queryObj = {};
+    }
+
+    // This should print correctly structured query object with $gte and $lte
+
+    // -----------------  GET ALL STATS  -----------------
+    try {
+      const data = await Invoice.aggregate([
+        {
+          $match: {
+            ...queryObj,
+            createdBy: reqUser,
+          },
+        },
+        {
+          $group: {
+            _id: null,
+            totalAmount: { $sum: "$totalAmount" },
+            totalDue: { $sum: "$dueAmount" },
+            totalPaid: { $sum: "$paidAmount" },
+          },
+        },
+        {
+          $project: {
+            _id: 0,
+            totalAmount: 1,
+            totalDue: 1,
+            totalPaid: 1,
+          },
+        },
+      ]);
+      return this.response({
+        code: 200,
+        message: "Get successfully",
+        data: data,
       });
     } catch (error: any) {
       throw new Error(error);
@@ -178,7 +251,6 @@ class InvoiceService extends Service {
   }
 
   // ---------------   UPDATE POST --------------
-
   async updateInvoice(id: string, reqBody: any) {
     try {
       const data = await Invoice.findById(id);

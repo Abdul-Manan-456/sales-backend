@@ -19,8 +19,9 @@ class CategoryController {
 
   async getCategory(req: Request, res: Response, next: NextFunction) {
     const reqQuery = req.query;
+    const reqBody = req.body;
     try {
-      const response = await CategoryService.getCategory(reqQuery);
+      const response = await CategoryService.getCategory({ reqBody, reqQuery });
       return res.status(response.code).json(response);
     } catch (error) {
       next(error);

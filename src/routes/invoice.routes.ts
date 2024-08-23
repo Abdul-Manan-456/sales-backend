@@ -9,6 +9,7 @@ router.post("/", InvoiceController.createInvoice);
 // router.post("/", validator(createCategoryJoi), InvoiceController.createInvoice);
 router.get("/", InvoiceController.getInvoice);
 router.get("/detail", InvoiceController.inovoiceUserDetails);
+router.get("/stats", InvoiceController.getStats);
 
 router.get("/:id", InvoiceController.getInvoiceById);
 

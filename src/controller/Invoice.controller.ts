@@ -15,7 +15,6 @@ class InvoiceController {
   }
 
   // ------------------ GET ALL --------------------
-
   async getInvoice(req: Request, res: Response, next: NextFunction) {
     try {
       const response = await InvoiceService.getInvoice(req);
@@ -26,10 +25,19 @@ class InvoiceController {
   }
 
   // ------------------ User Details Invoice --------------------
-
   async inovoiceUserDetails(req: Request, res: Response, next: NextFunction) {
     try {
       const response = await InvoiceService.invoiceUserDetail(req);
+      return res.status(response.code).json(response);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  // -------------------- DASHBOARD API / STATS => FOR ADMIN ----------------
+  async getStats(req: Request, res: Response, next: NextFunction) {
+    try {
+      const response = await InvoiceService.getStats(req);
       return res.status(response.code).json(response);
     } catch (error) {
       next(error);
@@ -50,7 +58,6 @@ class InvoiceController {
   }
 
   // ------------------ UPDATE --------------------
-
   async updateInvoice(req: Request, res: Response, next: NextFunction) {
     try {
       const response = await InvoiceService.updateInvoice(
@@ -64,7 +71,6 @@ class InvoiceController {
   }
 
   // ------------------ DELETE --------------------
-
   async deleteInvoice(req: Request, res: Response, next: NextFunction) {
     try {
       const response = await InvoiceService.deleteInvoice(req.params.id as any);
